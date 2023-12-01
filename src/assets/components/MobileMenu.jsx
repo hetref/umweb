@@ -12,6 +12,10 @@ const MobileMenu = ({ show, onClose }) => {
     });
   };
 
+  const onHomeClick = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className={`offcanvas-modal ${show ? "show" : ""}`}>
       <div className="offcanvas-dialog">
@@ -31,7 +35,14 @@ const MobileMenu = ({ show, onClose }) => {
           <nav id="offcanvasNav" className="offcanvas-menu">
             <ul>
               <li>
-                <NavLink exact to="/" onClick={onClose}>
+                <NavLink
+                  exact
+                  to="/"
+                  onClick={() => {
+                    onClose();
+                    onHomeClick();
+                  }}
+                >
                   Home
                 </NavLink>
               </li>
