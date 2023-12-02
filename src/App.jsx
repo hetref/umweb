@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CursorContextProvider from "./context/CursorContextProvider";
 import Cursor from "./assets/components/Cursor";
-import NavScrollTop from "./assets/components/NavScrollTop";
+// import NavScrollTop from "./assets/components/NavScrollTop";
 import { Toaster } from "react-hot-toast";
 
 // import "swiper/components/navigation/navigation.scss";s
@@ -19,12 +19,28 @@ import "./assets/css/plugins/animate.min.css";
 import "./assets/scss/style.scss";
 
 import Home from "./pages/home";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Authentication from "./components/Authentication";
+import ProtectedRoute from "./assets/components/ProtectedRoute";
+import Dashboard from "./pages/dashboard/";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
 function App() {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
+  });
+
+  const [user, setUser] = useState();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(true);
+      console.log(user);
+    } else {
+      setUser(false);
+    }
   });
 
   useEffect(() => {
@@ -37,17 +53,33 @@ function App() {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [user]);
 
   return (
-    <CursorContextProvider>
-      {windowSize.width > 990 && <Cursor />}
-      <Toaster />
-      <Router>
-        <NavScrollTop />
-        <Home />
-      </Router>
-    </CursorContextProvider>
+    <BrowserRouter>
+      <CursorContextProvider>
+        {windowSize.width > 990 && <Cursor />}
+        <Toaster />
+        {/* <NavScrollTop /> */}
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="um-auth" element={<Authentication />} />
+          <Route
+            path="um-dashboard"
+            element={
+              <ProtectedRoute user={user} route="/um-auth">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="update" />
+            <Route path="contact" />
+            <Route path="users" />
+          </Route>
+        </Routes>
+      </CursorContextProvider>
+    </BrowserRouter>
   );
 }
 
