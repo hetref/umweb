@@ -4,6 +4,7 @@ import AdminNavbar from "../../components/AdminNavbar";
 import Update from "../../assets/components/Update";
 import Contact from "../../assets/components/Contact";
 import Users from "../../assets/components/Users";
+import Counter from "../../assets/components/Counter";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -15,10 +16,14 @@ const Dashboard = () => {
   return (
     <div>
       <AdminNavbar />
-      {tab === "um-dashboard" && <>UM DASHBOARD</>}
-      {tab === "update" && <Update />}
-      {tab === "contact" && <Contact />}
-      {tab === "users" && <Users />}
+      <div id="dashboard-wrapper">
+        <div className="dashboard">
+          {tab === "um-dashboard" && <Counter />}
+          {tab === "update" && <Update />}
+          {tab === "contact" && <Contact />}
+          {tab === "users" && <Users />}
+        </div>
+      </div>
     </div>
   );
 };

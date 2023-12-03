@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CursorContextProvider from "./context/CursorContextProvider";
 import Cursor from "./assets/components/Cursor";
-// import NavScrollTop from "./assets/components/NavScrollTop";
 import { Toaster } from "react-hot-toast";
 
 // import "swiper/components/navigation/navigation.scss";s
@@ -20,11 +19,18 @@ import "./assets/scss/style.scss";
 
 import Home from "./pages/home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Authentication from "./components/Authentication";
 import ProtectedRoute from "./assets/components/ProtectedRoute";
 import Dashboard from "./pages/dashboard/";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+import Authenticate from "./components/Authenticate";
+
+import Hotjar from "@hotjar/browser";
+
+const siteId = 3772901;
+const hotjarVersion = 6;
+
+Hotjar.init(siteId, hotjarVersion);
 
 function App() {
   const [windowSize, setWindowSize] = useState({
@@ -60,15 +66,14 @@ function App() {
       <CursorContextProvider>
         {windowSize.width > 990 && <Cursor />}
         <Toaster />
-        {/* <NavScrollTop /> */}
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="um-auth" element={<Authentication />} />
+          <Route path="um-login" element={<Authenticate />} />
           <Route
             path="um-dashboard"
             element={
-              <ProtectedRoute user={user} route="/um-auth">
+              <ProtectedRoute user={user} route="/um-login">
                 <Dashboard />
               </ProtectedRoute>
             }

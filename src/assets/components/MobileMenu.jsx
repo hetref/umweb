@@ -36,7 +36,6 @@ const MobileMenu = ({ show, onClose }) => {
             <ul>
               <li>
                 <NavLink
-                  exact
                   to="/"
                   onClick={() => {
                     onClose();

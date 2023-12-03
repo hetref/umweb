@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Logo from "../assets/components/Logo";
 import brandlogo from "../assets/images/logo/logo-black.png";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -11,8 +11,6 @@ const Header = () => {
   const onCanvasHandler = () => {
     setOffcanvasShow((prev) => !prev);
   };
-  const [scroll, setScroll] = useState(0);
-  const [headerTop, setHeaderTop] = useState(0);
 
   const [, setCursor] = useContext(CursorContext);
   const toggleCursor = useCallback(() => {
@@ -20,10 +18,6 @@ const Header = () => {
   }, [setCursor]);
 
   const navigate = useNavigate();
-
-  const handleScroll = () => {
-    setScroll(window.scrollY);
-  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -46,31 +40,18 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        navigate("/um-auth");
+        navigate("/um-login");
       })
       .catch((error) => {
         console.log(error);
-        navigate("/um-auth");
+        navigate("/um-login");
         // An error happened.
       });
   };
 
-  useEffect(() => {
-    const header = document.querySelector(".sticky-header");
-    setHeaderTop(header.offsetTop);
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <>
-      <header
-        className={`header-section sticky-header ${
-          scroll > headerTop ? "is-sticky" : ""
-        }`}
-      >
+      <header className="admin-header-section">
         <div className="container">
           <div className="row align-items-center">
             <div className="col">
@@ -158,7 +139,6 @@ const Header = () => {
               <ul>
                 <li>
                   <NavLink
-                    exact
                     to="/"
                     onClick={() => {
                       onCanvasHandler();
