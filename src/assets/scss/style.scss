@@ -322,12 +322,9 @@
 
   .counter {
     padding: 3rem 1rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
 
     @include max-screen(768) {
       padding: 2rem 1rem;
-      grid-template-columns: repeat(1, 1fr);
     }
 
     .counter-item {
@@ -335,14 +332,12 @@
       border: 2px solid $primary;
       padding: 2rem 4rem;
       border-radius: 20px;
-      margin: 0 2rem;
       text-align: center;
       transition: all 0.4s ease;
 
       @include max-screen(768) {
         padding: 1.5rem 3rem;
         border-radius: 20px;
-        margin: 1rem 0;
       }
 
       h2 {
@@ -540,9 +535,11 @@
         border: none;
         background: none;
         margin-top: 2rem;
-
+        display: flex;
+        justify-content: center;
+        align-items: center;
         span {
-          padding-bottom: 7px;
+          // padding-bottom: 7px;
           letter-spacing: 4px;
           font-size: 14px;
           padding-right: 15px;
@@ -565,7 +562,7 @@
         .hover-underline-animation {
           position: relative;
           color: black;
-          padding-bottom: 20px;
+          // padding-bottom: 20px;
 
           &:after {
             content: "";
@@ -618,4 +615,8 @@
       }
     }
   }
+}
+
+.work-tag {
+  @apply bg-[#dadada] text-gray-800 px-[20px] py-[8px] rounded-full hover:bg-[#3d72a3e6] hover:text-[#ffffff] font-bold tracking-wider mr-4;
 }

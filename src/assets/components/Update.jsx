@@ -1,8 +1,67 @@
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { database, storage } from "../../firebase";
+import { useState } from "react";
+import { set, ref as dbref } from "firebase/database";
+
 const Update = () => {
   // Edit Services
   // Edit Works
   // Edit Contact detils
   // Edit Social Media Profiles
+  const [image, setImage] = useState(null);
+  const [workTitle, setWorkTitle] = useState("");
+  const [workCategory, setWorkCategory] = useState("");
+  const [workLink, setWorkLink] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleWorkImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const updateAvatar = (e) => {
+    e.preventDefault();
+    if (!image) {
+      console.log("Please upload a file");
+    } else {
+      const storageRef = ref(storage, `works/${workTitle}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          // setPercent(percent);
+          console.log(percent);
+        },
+        (err) => alert(err),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            console.log(url);
+            addWorkToDB(url);
+          });
+        }
+      );
+    }
+  };
+
+  const addWorkToDB = (workurl) => {
+    set(dbref(database, "unscrapMedia/works/" + workTitle), {
+      image: workurl,
+      title: workTitle,
+      category: workCategory,
+      link: workLink,
+    })
+      .then(() => {
+        console.log("SUCCESS");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div id="update-wrapper">
@@ -70,8 +129,33 @@ const Update = () => {
           <div className="form-control">
             <input
               className="input input-alt"
-              placeholder="Work"
+              placeholder="Title"
+              value={workTitle}
+              onChange={(e) => setWorkTitle(e.target.value)}
               required
+              type="text"
+            />
+            <span className="input-border input-border-alt"></span>
+          </div>
+
+          <div className="form-control">
+            <input
+              className="input input-alt"
+              placeholder="Category"
+              required
+              value={workCategory}
+              onChange={(e) => setWorkCategory(e.target.value)}
+              type="text"
+            />
+            <span className="input-border input-border-alt"></span>
+          </div>
+
+          <div className="form-control">
+            <input
+              className="input input-alt"
+              placeholder="Link | NULL"
+              value={workLink}
+              onChange={(e) => setWorkLink(e.target.value)}
               type="text"
             />
             <span className="input-border input-border-alt"></span>
@@ -83,12 +167,49 @@ const Update = () => {
               placeholder="Enter File"
               required
               type="file"
+              onChange={handleWorkImageChange}
             />
             <label htmlFor="work-image">Add Image</label>
           </div>
 
-          <button className="cta">
+          <button className="cta" onClick={updateAvatar}>
             <span className="hover-underline-animation"> Add Work </span>
+            <svg
+              viewBox="0 0 46 16"
+              height="10"
+              width="30"
+              xmlns="http://www.w3.org/2000/svg"
+              id="arrow-horizontal"
+            >
+              <path
+                transform="translate(30)"
+                d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
+                data-name="Path 10"
+                id="Path_10"
+              ></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div className="update-works prev-admin-section">
+        <h2>Add Work Category</h2>
+        {/* Add Work Category */}
+        <form>
+          <div className="form-control">
+            <input
+              className="input input-alt"
+              placeholder="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              type="text"
+            />
+            <span className="input-border input-border-alt"></span>
+          </div>
+
+          <button className="cta" onClick={updateAvatar}>
+            <span className="hover-underline-animation"> Add Category </span>
             <svg
               viewBox="0 0 46 16"
               height="10"
@@ -170,7 +291,6 @@ const Update = () => {
               placeholder="Address"
               required
               type="text"
-              value="shindearyan179@gmail.com"
             />
             <span className="input-border input-border-alt"></span>
           </div>

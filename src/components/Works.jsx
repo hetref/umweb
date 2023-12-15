@@ -3,11 +3,32 @@ import SectionTitle from "../assets/components/SectionTitle";
 import Button from "../assets/components/Button";
 import IconBox from "../assets/components/IconBox";
 import imgshape from "../assets/images/feature/shape.png";
-import imgicbox1 from "../assets/images/feature/logo/1.png";
-import imgicbox2 from "../assets/images/feature/logo/2.png";
-import imgicbox3 from "../assets/images/feature/logo/3.png";
+import { useEffect, useState } from "react";
+import useDbStore from "../store/dbStore";
+import { ref } from "firebase/database";
+import { database } from "../firebase";
 
 const Works = ({ classOption }) => {
+  const [currentTab, setCurrentTab] = useState("all");
+  const [works, setWorks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const worksRef = ref(database, "unscrapMedia/works");
+  const data = useDbStore((state) => state.data);
+  // console.log(data);
+
+  useEffect(() => {
+    setWorks(data.works);
+    console.log(works);
+    if (works === null || works === undefined || works.length === 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+      const arr = Object.values(works);
+      console.log(arr);
+    }
+  }, [data, works]);
+
   return (
     <>
       <span
@@ -43,24 +64,34 @@ const Works = ({ classOption }) => {
 
             <div className="col-12">
               <div id="grid" className="grid row mb-n7">
-                <IconBox
-                  className="grid-item card-mt-75 mb-7"
-                  icon={imgicbox1}
-                  title="Strong Security"
-                  excerpt="Pleasure rationally encounter are extremely painful anyone who loves or pursues"
-                />
-                <IconBox
-                  className="grid-item card-mt-75 mb-7"
-                  icon={imgicbox2}
-                  title="Creative Idea"
-                  excerpt="Pleasure rationally encounter are extremely painful anyone who loves or pursues"
-                />
-                <IconBox
-                  className="grid-item card-mt-75 mb-7"
-                  icon={imgicbox3}
-                  title="Best Service"
-                  excerpt="Pleasure rationally encounter are extremely painful anyone who loves or pursues"
-                />
+                <div className="work-tags flex justify-center items-center mt-6"></div>
+                {!loading &&
+                  currentTab === "all" &&
+                  Object.values(works)?.map((item, index) => {
+                    console.log(item);
+                    return (
+                      <IconBox
+                        key={index}
+                        icon={item.image}
+                        title={item.title}
+                        link={item.link}
+                      />
+                    );
+                  })}
+
+                {!loading &&
+                  Object.values(works).map((item, index) => {
+                    if (item.category == currentTab) {
+                      return (
+                        <IconBox
+                          key={index}
+                          icon={item.image}
+                          title={item.title}
+                          link={item.link}
+                        />
+                      );
+                    }
+                  })}
               </div>
             </div>
           </div>

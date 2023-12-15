@@ -10,19 +10,17 @@ import Footer from "../../components/Footer";
 
 const index = () => {
   return (
-    <>
-      <div className="wrapper">
-        <Navbar />
-        <Header />
-        <BrandSlider />
-        <About />
-        <Services />
-        <Works />
-        <Teams />
-        <Contact />
-        <Footer />
-      </div>
-    </>
+    <div className="wrapper">
+      <Navbar />
+      <Header />
+      <BrandSlider />
+      <About />
+      <Services />
+      <Works />
+      <Teams />
+      <Contact />
+      <Footer />
+    </div>
   );
 };
 

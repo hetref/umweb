@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .work-tag {
+  @apply bg-[#dadada] text-gray-800 px-[20px] py-[8px] rounded-full;
+} */

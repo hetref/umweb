@@ -12,7 +12,7 @@ const Dashboard = () => {
   const path = location.pathname;
   const pathArray = path.split("/");
   const tab = pathArray[pathArray.length - 1];
-  console.log(tab);
+  // console.log(tab);
   return (
     <div>
       <AdminNavbar />

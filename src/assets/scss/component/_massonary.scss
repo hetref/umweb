@@ -17,9 +17,9 @@
 
 .card-mt-75 {
   @include min-screen(576) {
-    margin-top: 50px;
+    margin-top: 40px;
   }
   @include min-screen(992) {
-    margin-top: 80px;
+    margin-top: 60px;
   }
 }

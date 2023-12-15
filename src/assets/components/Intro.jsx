@@ -1,21 +1,22 @@
-import { useEffect, useRef } from "react";
+// import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import Parallax from "parallax-js";
+// import Parallax from "parallax-js";
 import Button from "./Button";
-import imgintro from "../images/slider/slide2.png";
+// import imgintro from "../images/slider/slide2.png";
+import SplineAsset from "../../components/SplineAsset";
 
 const Intro = () => {
-  const sceneEl = useRef(null);
+  // const sceneEl = useRef(null);
 
-  useEffect(() => {
-    const parallaxInstance = new Parallax(sceneEl.current, {
-      relativeInput: true,
-    });
+  // useEffect(() => {
+  //   const parallaxInstance = new Parallax(sceneEl.current, {
+  //     relativeInput: true,
+  //   });
 
-    parallaxInstance.enable();
+  //   parallaxInstance.enable();
 
-    return () => parallaxInstance.disable();
-  }, []);
+  //   return () => parallaxInstance.disable();
+  // }, []);
 
   return (
     <div className="hero-slider">
@@ -43,13 +44,11 @@ const Intro = () => {
             </div>
           </div>
           <div className="col-lg-6">
-            <div
-              className="hero-img scene mt-10 mt-lg-0"
-              id="scene"
-              ref={sceneEl}
-            >
-              <div data-depth="0.2">
-                <img className="animated" src={imgintro} alt="" />
+            <div>
+              {/* <div data-depth="0.2"> */}
+              <div>
+                <SplineAsset />
+                {/* <img className="animated" src={imgintro} alt="" /> */}
               </div>
             </div>
           </div>

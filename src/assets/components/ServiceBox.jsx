@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
-const ServiceBox = ({ icon, title, excerpt }) => {
+const ServiceBox = ({ title, excerpt }) => {
   return (
     <div className="service-media">
-      <img className="logo" src={icon} alt=" service logo" />
+      {/* <img className="logo" src={icon} alt=" service logo" /> */}
       <div className="service-media-body">
         <h4 className="title">{title}</h4>
         <p>{excerpt}</p>
@@ -13,7 +13,7 @@ const ServiceBox = ({ icon, title, excerpt }) => {
 };
 
 ServiceBox.propTypes = {
-  icon: PropTypes.string,
+  // icon: PropTypes.string,
   title: PropTypes.string,
   excerpt: PropTypes.string,
 };
