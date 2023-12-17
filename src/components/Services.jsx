@@ -60,21 +60,19 @@ import useDbStore from "../store/dbStore";
 
 const ServiceListContainer = () => {
   const data = useDbStore((state) => state.data);
-  const services = data.services.updatedArray;
+  const services = data.services?.updatedArray;
 
   const [serviceMidPoint, setServiceMidPoint] = useState(4);
   const [serviceEndPoint, setServiceEndPoint] = useState(8);
 
   useEffect(() => {
-    const serviceMidPoint = Math.ceil(services.length / 2);
-    const serviceEndPoint = services.length;
-
-    setServiceMidPoint(serviceMidPoint);
-    setServiceEndPoint(serviceEndPoint);
+    services?.updatedArray &&
+      setServiceMidPoint(Math.ceil(services.length / 2));
+    services?.updatedArray && setServiceEndPoint(services.length);
 
     console.log(serviceMidPoint);
     console.log(serviceEndPoint);
-  }, [services]);
+  }, [services, serviceMidPoint, serviceEndPoint]);
 
   return (
     <div id="service" className="service-section section-pt position-relative">
