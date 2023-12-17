@@ -117,11 +117,11 @@ const ContactForm = () => {
           <input
             type="text"
             className="form-control"
-            id="name"
-            name="name"
+            id="firstName"
+            name="firstName"
             placeholder="Your First Name*"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
 
@@ -129,23 +129,23 @@ const ContactForm = () => {
           <input
             type="text"
             className="form-control"
-            id="email"
-            name="email"
+            id="lastName"
+            name="lastName"
             placeholder="Your Last Name*"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
 
         <div className="col-12 col-sm-6 mb-7">
           <input
-            type="text"
+            type="tel"
             className="form-control"
-            id="name"
-            name="name"
+            id="phoneNo"
+            name="phoneNo"
             placeholder="Your Phone Number*"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={phoneNo}
+            onChange={(e) => setPhoneNo(e.target.value)}
           />
         </div>
 
