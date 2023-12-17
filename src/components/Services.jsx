@@ -3,61 +3,6 @@ import SectionTitle from "../assets/components/SectionTitle";
 import ServiceBox from "../assets/components/ServiceBox";
 import useDbStore from "../store/dbStore";
 
-// const services = [
-//   {
-//     title: "Social Media Marketing",
-//     excerpt:
-//       "Elevate your brand's online presence with our strategic social media marketing services. We craft engaging campaigns to connect, captivate, and convert your audience across platforms.",
-//   },
-//   {
-//     title: "Creative Design",
-//     excerpt:
-//       "Immerse your brand in visually stunning design. Our creative design services combine innovation and aesthetics to convey your brand message with eye-catching visuals that leave a lasting impression.",
-//   },
-//   {
-//     title: "Video Production",
-//     excerpt:
-//       "Transform your ideas into compelling visual stories. Our video production services seamlessly blend creativity and professionalism, bringing your brand to life through dynamic and impactful videos.",
-//   },
-//   {
-//     title: "Motion Graphic Animation",
-//     excerpt:
-//       "Add a dynamic touch to your content with our motion graphic animation services. We bring ideas to life through captivating animations, enhancing your brand's storytelling and engagement.",
-//   },
-//   {
-//     title: "Website Development",
-//     // excerpt:
-//     //   "Empower your online presence with cutting-edge website development. We specialize in crafting user-friendly, responsive websites that not only look great but also deliver a seamless user experience.",
-//     excerpt:
-//       "Enhance your online presence with top-notch website development. We specialize in sleek, user-friendly & good looking sites for a seamless user experience.",
-//   },
-//   {
-//     title: "Product Photography",
-//     excerpt:
-//       "Showcase your products in the best light. Our product photography services capture the essence of your offerings, presenting them with high-quality visuals that speak volumes.",
-//   },
-//   {
-//     title: "Search Engine Optimization",
-//     excerpt:
-//       "Boost your visibility on search engines and drive organic traffic to your website. Our SEO services are tailored to enhance your online presence, improve rankings, and ensure your business stands out in the digital landscape.",
-//   },
-//   {
-//     title: "Ads Campaign",
-//     excerpt:
-//       "Drive targeted results with our strategic ad campaigns. From conception to execution, we optimize every campaign to maximize reach and conversions, ensuring your brand gets the attention it deserves.",
-//   },
-//   {
-//     title: "Ads Campaign",
-//     excerpt:
-//       "Drive targeted results with our strategic ad campaigns. From conception to execution, we optimize every campaign to maximize reach and conversions, ensuring your brand gets the attention it deserves.",
-//   },
-//   {
-//     title: "Ads Campaign",
-//     excerpt:
-//       "Drive targeted results with our strategic ad campaigns. From conception to execution, we optimize every campaign to maximize reach and conversions, ensuring your brand gets the attention it deserves.",
-//   },
-// ];
-
 const ServiceListContainer = () => {
   const data = useDbStore((state) => state.data);
   const services = data.services?.updatedArray;

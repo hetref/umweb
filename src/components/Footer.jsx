@@ -61,13 +61,18 @@ const Footer = () => {
                 </p>
                 <ul className="address">
                   <li>
-                    <a className="address-link" href="tel:+12354569874">
-                      +12354 569 874
+                    <a className="address-link" href="tel:+918898967521">
+                      +91 88989 67521
                     </a>
                   </li>
                   <li>
-                    <a className="address-link" href="tel:+98745612398">
-                      +98745 612 398
+                    <a className="address-link" href="tel:+919029239848">
+                      +91 90292 39848
+                    </a>
+                  </li>
+                  <li>
+                    <a className="address-link" href="tel:+917400380622">
+                      +91 74003 80622
                     </a>
                   </li>
                   <li>

@@ -47,7 +47,7 @@ const ContactContainer = () => {
                 <ContactInfo
                   classOption="address-list mb-4 mb-xl-10 pb-2"
                   title="Phone Number"
-                  info="+12345 678 987 <br /> +98745 612 321"
+                  info="+91 88989 67521 <br /> +91 90292 39848 <br /> +91 74003 80622"
                 />
                 <ContactInfo
                   classOption="address-list"
