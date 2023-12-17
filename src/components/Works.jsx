@@ -5,29 +5,37 @@ import IconBox from "../assets/components/IconBox";
 import imgshape from "../assets/images/feature/shape.png";
 import { useEffect, useState } from "react";
 import useDbStore from "../store/dbStore";
-import { ref } from "firebase/database";
-import { database } from "../firebase";
+// import { ref } from "firebase/database";
+// import { database } from "../firebase";
 
 const Works = ({ classOption }) => {
   const [currentTab, setCurrentTab] = useState("all");
   const [works, setWorks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
 
-  const worksRef = ref(database, "unscrapMedia/works");
   const data = useDbStore((state) => state.data);
-  // console.log(data);
 
   useEffect(() => {
     setWorks(data.works);
-    console.log(works);
-    if (works === null || works === undefined || works.length === 0) {
+    setCategories(data.work?.categories);
+    // console.log(works);
+    // console.log(categories);
+    if (
+      works === null ||
+      works === undefined ||
+      works.length === 0 ||
+      categories === null ||
+      categories === undefined ||
+      categories.length === 0
+    ) {
       setLoading(true);
     } else {
       setLoading(false);
-      const arr = Object.values(works);
-      console.log(arr);
+      // const arr = Object.values(works);
+      // console.log(arr);
     }
-  }, [data, works]);
+  }, [data, works, categories]);
 
   return (
     <>
@@ -64,11 +72,30 @@ const Works = ({ classOption }) => {
 
             <div className="col-12">
               <div id="grid" className="grid row mb-n7">
-                <div className="work-tags flex justify-center items-center mt-6"></div>
+                <div className="work-tags flex justify-center items-center mt-6">
+                  <button
+                    className={`btn btn-sm btn-outline-primary mr-3 ${
+                      currentTab === "all" ? "active" : ""
+                    }`}
+                    onClick={() => setCurrentTab("all")}
+                  >
+                    All
+                  </button>
+                  {categories?.map((item) => (
+                    <button
+                      key={item}
+                      className={`btn btn-sm btn-outline-primary mr-3 ${
+                        currentTab === item ? "active" : ""
+                      }`}
+                      onClick={() => setCurrentTab(item)}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
                 {!loading &&
                   currentTab === "all" &&
                   Object.values(works)?.map((item, index) => {
-                    console.log(item);
                     return (
                       <IconBox
                         key={index}

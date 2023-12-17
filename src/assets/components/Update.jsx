@@ -1,7 +1,8 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { database, storage } from "../../firebase";
-import { useState } from "react";
-import { set, ref as dbref } from "firebase/database";
+import { useEffect, useState } from "react";
+import { set, ref as dbref, onValue, update } from "firebase/database";
+import useDbStore from "../../store/dbStore";
 
 const Update = () => {
   // Edit Services
@@ -14,13 +15,39 @@ const Update = () => {
   const [workLink, setWorkLink] = useState("");
   const [category, setCategory] = useState("");
 
+  // const [serviceTitle, setServiceTitle] = useState("");
+  // const [serviceDescription, setServiceDescription] = useState("");
+
+  const [services, setServices] = useState({ title: "", description: "" });
+
+  const data = useDbStore((state) => state.data);
+  const setData = useDbStore((state) => state.setData);
+
+  useEffect(() => {
+    console.log(data.work.categories);
+  }, [data]);
+
   const handleWorkImageChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
 
-  const updateAvatar = (e) => {
+  const addService = async (e) => {
+    e.preventDefault();
+    console.log("Add Service");
+
+    const dbbref = dbref(database, "unscrapMedia/services");
+
+    const updatedArray = [...data.services.updatedArray, services];
+
+    // Update the array in Realtime Database
+    await update(dbbref, { updatedArray });
+
+    getData();
+  };
+
+  const addWorks = (e) => {
     e.preventDefault();
     if (!image) {
       console.log("Please upload a file");
@@ -56,25 +83,46 @@ const Update = () => {
       link: workLink,
     })
       .then(() => {
-        console.log("SUCCESS");
+        console.log("WORK ADDED");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const addCategory = async (e) => {
+    e.preventDefault();
+
+    const dbbref = dbref(database, "unscrapMedia/work");
+    const updatedArray = [...data.work.categories, category];
+    await update(dbbref, { categories: updatedArray });
+    getData();
+  };
+
+  const getData = async () => {
+    const countRef = ref(database, "unscrapMedia");
+
+    onValue(countRef, (snapshot) => {
+      const maindata = snapshot.val();
+      setData(maindata);
+    });
+  };
+
   return (
     <div id="update-wrapper">
       <div className="update-services prev-admin-section">
         <h2>Add Services</h2>
-        {/* Add Services */}
         <form>
           <div className="form-control">
             <input
               className="input input-alt"
-              placeholder="Service"
+              placeholder="Service Title"
               required
               type="text"
+              value={services.title}
+              onChange={(e) =>
+                setServices({ ...services, title: e.target.value })
+              }
             />
             <span className="input-border input-border-alt"></span>
           </div>
@@ -82,27 +130,20 @@ const Update = () => {
           <div className="form-control">
             <textarea
               className="input input-alt"
-              placeholder="Description"
+              placeholder="Service Description"
               rows={6}
               required
               type="text"
-              maxLength={200}
+              maxLength={250}
+              value={services.description}
+              onChange={(e) =>
+                setServices({ ...services, description: e.target.value })
+              }
             />
             <span className="input-border input-border-alt"></span>
           </div>
 
-          <div className="file-upload">
-            <input
-              id="service-icon"
-              // className="input input-alt"
-              placeholder="Enter File"
-              required
-              type="file"
-            />
-            <label htmlFor="service-icon">Add Icon</label>
-          </div>
-
-          <button className="cta">
+          <button className="cta" onClick={addService}>
             <span className="hover-underline-animation"> Add Service </span>
             <svg
               viewBox="0 0 46 16"
@@ -124,12 +165,11 @@ const Update = () => {
 
       <div className="update-works next-admin-section prev-admin-section">
         <h2>Add Works</h2>
-        {/* Add Works */}
         <form>
           <div className="form-control">
             <input
               className="input input-alt"
-              placeholder="Title"
+              placeholder="Work Title"
               value={workTitle}
               onChange={(e) => setWorkTitle(e.target.value)}
               required
@@ -138,22 +178,45 @@ const Update = () => {
             <span className="input-border input-border-alt"></span>
           </div>
 
-          <div className="form-control">
-            <input
-              className="input input-alt"
-              placeholder="Category"
-              required
+          <div className="relative group rounded-lg w-full min-w-[300px] max-w-[36rem] bg-[#3d72a41a] overflow-hidden before:absolute before:w-12 before:h-12 before:content[''] before:right-0 before:bg-[#3d72a480] before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#3d72a44d]">
+            <svg
+              y="0"
+              xmlns="http://www.w3.org/2000/svg"
+              x="0"
+              width="100"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="xMidYMid meet"
+              height="100"
+              className="w-8 h-8 absolute right-0 -rotate-45 stroke-[#3d72a3e6] top-1.5 group-hover:rotate-0 duration-300"
+            >
+              <path
+                strokeWidth="4"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                fill="none"
+                d="M60.7,53.6,50,64.3m0,0L39.3,53.6M50,64.3V35.7m0,46.4A32.1,32.1,0,1,1,82.1,50,32.1,32.1,0,0,1,50,82.1Z"
+                className="svg-stroke-primary"
+              ></path>
+            </svg>
+            <select
               value={workCategory}
               onChange={(e) => setWorkCategory(e.target.value)}
-              type="text"
-            />
-            <span className="input-border input-border-alt"></span>
+              className="appearance-none hover:placeholder-shown:bg-emerald-500 relative text-[#3d72a3e6] bg-transparent ring-0 outline-none border border-neutral-500 placeholder-violet-700 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5"
+            >
+              <option defaultValue>Select a Category</option>
+              {data.work.categories.length != 0 &&
+                data.work.categories.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+            </select>
           </div>
 
           <div className="form-control">
             <input
               className="input input-alt"
-              placeholder="Link | NULL"
+              placeholder="Work Link | NULL"
               value={workLink}
               onChange={(e) => setWorkLink(e.target.value)}
               type="text"
@@ -169,10 +232,10 @@ const Update = () => {
               type="file"
               onChange={handleWorkImageChange}
             />
-            <label htmlFor="work-image">Add Image</label>
+            <label htmlFor="work-image">Add Work Image</label>
           </div>
 
-          <button className="cta" onClick={updateAvatar}>
+          <button className="cta" onClick={addWorks}>
             <span className="hover-underline-animation"> Add Work </span>
             <svg
               viewBox="0 0 46 16"
@@ -192,14 +255,13 @@ const Update = () => {
         </form>
       </div>
 
-      <div className="update-works prev-admin-section">
+      <div className="update-works next-admin-section">
         <h2>Add Work Category</h2>
-        {/* Add Work Category */}
         <form>
           <div className="form-control">
             <input
               className="input input-alt"
-              placeholder="Category"
+              placeholder="Enter Category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
@@ -208,7 +270,7 @@ const Update = () => {
             <span className="input-border input-border-alt"></span>
           </div>
 
-          <button className="cta" onClick={updateAvatar}>
+          <button className="cta" onClick={addCategory}>
             <span className="hover-underline-animation"> Add Category </span>
             <svg
               viewBox="0 0 46 16"
@@ -228,9 +290,9 @@ const Update = () => {
         </form>
       </div>
 
-      <div className="update-contact next-admin-section ">
+      {/* <div className="update-contact next-admin-section ">
         <h2>Update Contact</h2>
-        {/* Update Contact */}
+        Update Contact
         <form className="prev-admin-section">
           <div className="form-control">
             <input
@@ -281,7 +343,7 @@ const Update = () => {
           </button>
         </form>
 
-        {/* Send Email to Details */}
+        Send Email to Details
 
         <h2>Email to?</h2>
         <form className="prev-admin-section">
@@ -314,7 +376,7 @@ const Update = () => {
           </button>
         </form>
 
-        {/* Display Contact Details */}
+        Display Contact Details
         <div className="contact-details next-admin-section">
           <h2>Contact Details</h2>
           <div className="contact-detail">
@@ -327,13 +389,12 @@ const Update = () => {
             <span>phone</span>
             <span>phone</span>
           </div>
-          <div className="contact-detail">
             <h4>Email</h4>
             <span>email</span>
             <span>email</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
