@@ -1,21 +1,8 @@
-import { useEffect, useRef } from "react";
-import Parallax from "parallax-js";
 import SectionTitle from "../assets/components/SectionTitle";
 import img1 from "../assets/images/about/1.png";
 import imgshape from "../assets/images/about/shape1.svg";
 
 const About = () => {
-  const sceneEl = useRef(null);
-
-  useEffect(() => {
-    const parallaxInstance = new Parallax(sceneEl.current, {
-      relativeInput: true,
-    });
-
-    parallaxInstance.enable();
-
-    return () => parallaxInstance.disable();
-  }, []);
   return (
     <>
       <span
@@ -62,10 +49,9 @@ const About = () => {
               <div
                 className="about-photo scene text-center text-lg-left"
                 id="scene"
-                ref={sceneEl}
               >
                 <div data-depth="0.2">
-                  <img src={img1} alt="about" />
+                  <img src={img1} alt="about" className="about-us-img" />
                 </div>
               </div>
             </div>

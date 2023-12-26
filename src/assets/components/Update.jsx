@@ -15,9 +15,6 @@ const Update = () => {
   const [workLink, setWorkLink] = useState("");
   const [category, setCategory] = useState("");
 
-  // const [serviceTitle, setServiceTitle] = useState("");
-  // const [serviceDescription, setServiceDescription] = useState("");
-
   const [services, setServices] = useState({ title: "", description: "" });
 
   const data = useDbStore((state) => state.data);

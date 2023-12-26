@@ -52,3 +52,13 @@
   bottom: -5%;
   z-index: -1;
 }
+
+.about-us-img {
+  animation: animate 1s infinite ease alternate;
+}
+
+@keyframes animate {
+  to {
+    transform: translateY(10px);
+  }
+}

@@ -5,8 +5,6 @@ import IconBox from "../assets/components/IconBox";
 import imgshape from "../assets/images/feature/shape.png";
 import { useEffect, useState } from "react";
 import useDbStore from "../store/dbStore";
-// import { ref } from "firebase/database";
-// import { database } from "../firebase";
 
 const Works = ({ classOption }) => {
   const [currentTab, setCurrentTab] = useState("all");
@@ -18,9 +16,8 @@ const Works = ({ classOption }) => {
 
   useEffect(() => {
     setWorks(data.works);
+
     setCategories(data.work?.categories);
-    // console.log(works);
-    // console.log(categories);
     if (
       works === null ||
       works === undefined ||
@@ -32,8 +29,6 @@ const Works = ({ classOption }) => {
       setLoading(true);
     } else {
       setLoading(false);
-      // const arr = Object.values(works);
-      // console.log(arr);
     }
   }, [data, works, categories]);
 
@@ -72,7 +67,7 @@ const Works = ({ classOption }) => {
 
             <div className="col-12">
               <div id="grid" className="grid row mb-n7">
-                <div className="work-tags flex justify-center items-center mt-6">
+                <div className="work-tags md:flex justify-center items-center mt-6 hidden">
                   <button
                     className={`btn btn-sm btn-outline-primary mr-3 ${
                       currentTab === "all" ? "active" : ""

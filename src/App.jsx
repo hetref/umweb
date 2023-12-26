@@ -34,6 +34,7 @@ import Users from "./assets/components/Users";
 import useCountStore from "./store/isCounted";
 import useDevStore from "./store/devStore";
 import useDbStore from "./store/dbStore";
+import ContactDetailsPage from "./assets/components/ContactDetailsPage";
 
 const siteId = 3772901;
 const hotjarVersion = 6;
@@ -130,7 +131,9 @@ function App() {
             }
           >
             <Route path="update" element={<Update />} />
-            <Route path="contact" element={<Contact />} />
+            <Route path="contact" element={<Contact />}>
+              <Route path=":timestamp" element={<ContactDetailsPage />} />
+            </Route>
             <Route path="users" element={<Users />} />
           </Route>
         </Routes>

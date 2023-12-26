@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import SectionTitle from "../assets/components/SectionTitle";
-import imgthumb1 from "../assets/images/team/rounded-img1.png";
-import imgthumb2 from "../assets/images/team/rounded-img2.png";
-import imgthumb3 from "../assets/images/team/rounded-img3.png";
 import Team from "../assets/components/Team";
+
+import caryimg from "../assets/images/profiles/Cary.jpg";
+import tejanimg from "../assets/images/profiles/Tejan.jpg";
+import kaushikimg from "../assets/images/profiles/Kaushik.jpg";
 
 const Teams = ({ classOption }) => {
   return (
@@ -35,17 +36,17 @@ const Teams = ({ classOption }) => {
             <div className="col-lg-7">
               <div className="new-team-members">
                 <Team
-                  thumb={imgthumb1}
+                  thumb={tejanimg}
                   name="Tejan Suvarna"
                   designation="Co-Founder"
                 />
                 <Team
-                  thumb={imgthumb2}
+                  thumb={kaushikimg}
                   name="Kaushik Patil"
                   designation="Co-Founder"
                 />
                 <Team
-                  thumb={imgthumb3}
+                  thumb={caryimg}
                   name="Cary Wood"
                   designation="Co-Founder"
                 />

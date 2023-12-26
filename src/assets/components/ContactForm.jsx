@@ -71,6 +71,7 @@ const ContactForm = () => {
         message:
           message.length === 0 || message === "" ? "No Message" : message,
         timestamp: serverTimestamp(),
+        storedTimestamp: timestamp,
       })
         .then(() => {
           console.log("WORK ADDED");
@@ -106,6 +107,11 @@ const ContactForm = () => {
         })
         .finally(() => {
           setLoading(false);
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPhoneNo("");
+          setMessage("");
         });
     }
   };
