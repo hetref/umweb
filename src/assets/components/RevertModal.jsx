@@ -44,6 +44,7 @@ const RevertModal = ({ timestamp }) => {
         {
           to_name: contactName,
           to_email: contactEmail,
+          from_email: "aryan_unscrapmedia@gmail.com",
           message_header: messageHeader,
           message: message,
           message_footer: messageFooter,

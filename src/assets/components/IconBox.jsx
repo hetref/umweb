@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-
+import { FaExternalLinkAlt } from "react-icons/fa";
 const IconBox = ({ icon, title, link }) => {
   return (
     <div className="grid-item card-mt-75 mb-7">
@@ -14,8 +14,14 @@ const IconBox = ({ icon, title, link }) => {
         {link === "" ? (
           <h4 className="title mt-6 mb-0">{title}</h4>
         ) : (
-          <a target="_blank" rel="noreferrer" href={link}>
-            <h4 className="title mt-6 mb-0">{title}</h4>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={link}
+            className="flex mt-6 justify-center items-center text-[#181c51] hover:text-[#5080ac]"
+          >
+            <h4 className="title mb-0 mr-4">{title}</h4>
+            <FaExternalLinkAlt className="" />
           </a>
         )}
       </div>
