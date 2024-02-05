@@ -22,6 +22,7 @@ import Home from "./pages/home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./assets/components/ProtectedRoute";
 import Dashboard from "./pages/dashboard/";
+import CaseStudy from "./pages/case-study/";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "./firebase";
 import Authenticate from "./components/Authenticate";
@@ -121,6 +122,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="um-login" element={<Authenticate />} />
           <Route
             path="um-dashboard"

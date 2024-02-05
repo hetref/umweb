@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 
 const BrandSlider = () => {
   return (
-    <div className="brand-section section-py">
+    <div className="brand-section pb-[70px] lg:pb-[140px] pt-[60px] lg:pt-[100px]">
       <div className="container">
         <div className="row">
           <div className="col-12">

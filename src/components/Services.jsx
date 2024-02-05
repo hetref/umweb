@@ -33,9 +33,6 @@ const ServiceListContainer = () => {
             />
           </div>
         </div>
-        {/* grid-rows-2 */}
-
-        {/* <div className="grid grid-rows-1 mb-7 md:grid-rows-2"> */}
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
           {services &&
             services.slice(0, serviceMidPoint).map((item, key) => {
@@ -48,49 +45,6 @@ const ServiceListContainer = () => {
               );
             })}
         </div>
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {services &&
-              services.slice(4, serviceEndPoint).map((item, key) => {
-                return (
-                  <ServiceBox
-                    title={item.title}
-                    excerpt={item.description}
-                    key={key}
-                  />
-                );
-              })}
-          </div> */}
-        {/* </div> */}
-        {/* <div className="row mb-n7 align-items-center">
-          <div className="col-md-6 col-xl-6 mb-sm-7">
-            <div className="service-media-wrapper media-spacing-left">
-              {services &&
-                services.slice(0, 4).map((item, key) => {
-                  return (
-                    <ServiceBox
-                      title={item.title}
-                      excerpt={item.excerpt}
-                      key={key}
-                    />
-                  );
-                })}
-            </div>
-          </div>
-          <div className="col-md-6 col-xl-6 mb-7">
-            <div className="service-media-wrapper media-spacing-right">
-              {services &&
-                services.slice(4, 8).map((item, key) => {
-                  return (
-                    <ServiceBox
-                      title={item.title}
-                      excerpt={item.excerpt}
-                      key={key}
-                    />
-                  );
-                })}
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

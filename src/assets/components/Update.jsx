@@ -21,7 +21,7 @@ const Update = () => {
   const setData = useDbStore((state) => state.setData);
 
   useEffect(() => {
-    console.log(data.work.categories);
+    console.log(data);
   }, [data]);
 
   const handleWorkImageChange = (e) => {

@@ -74,7 +74,7 @@ const ContactForm = () => {
         storedTimestamp: timestamp,
       })
         .then(() => {
-          console.log("WORK ADDED");
+          console.log("Contcted Successfully");
         })
         .catch((err) => {
           console.log(err);

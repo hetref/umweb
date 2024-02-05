@@ -1,14 +1,15 @@
-import About from "../../components/About";
-import Header from "../../components/Header";
 import Navbar from "../../components/Navbar";
+import Header from "../../components/Header";
+import BrandSlider from "../../components/BrandSlider";
+import About from "../../components/About";
 import Services from "../../components/Services";
 import Works from "../../components/Works";
+// import CaseStudy from "../../components/CaseStudy";
 import Teams from "../../components/Teams";
 import Contact from "../../components/Contact";
-import BrandSlider from "../../components/BrandSlider";
 import Footer from "../../components/Footer";
 
-const index = () => {
+const Home = () => {
   return (
     <div className="wrapper">
       <Navbar />
@@ -17,6 +18,7 @@ const index = () => {
       <About />
       <Services />
       <Works />
+      {/* <CaseStudy /> */}
       <Teams />
       <Contact />
       <Footer />
@@ -24,4 +26,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Home;

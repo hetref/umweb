@@ -1,10 +1,22 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-const ServiceBox = ({ title, excerpt }) => {
+const ServiceBox = ({ title, excerpt, type, link }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("clicked");
+    if (type === "case-study") {
+      navigate(link);
+    }
+  };
+
   return (
     <div className="service-media">
-      {/* <img className="logo" src={icon} alt=" service logo" /> */}
-      <div className="service-media-body">
+      <div
+        className="service-media-body hover:bg-[#3d72a440] p-[2rem] rounded duration-300"
+        onClick={handleClick}
+      >
         <h4 className="title">{title}</h4>
         <p>{excerpt}</p>
       </div>
@@ -13,9 +25,10 @@ const ServiceBox = ({ title, excerpt }) => {
 };
 
 ServiceBox.propTypes = {
-  // icon: PropTypes.string,
   title: PropTypes.string,
   excerpt: PropTypes.string,
+  type: PropTypes.string,
+  link: PropTypes.string,
 };
 
 export default ServiceBox;
